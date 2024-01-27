@@ -1,0 +1,28 @@
+<div class="container mx-auto bg-gray-200 rounded-xl p-1 my-4">
+    <form method="get" action="/search/">
+        {% csrf_token %}
+        <div class="sm:flex items-center bg-white rounded-lg overflow-hidden px-2 py-1 justify-between">
+            <input class="text-base text-gray-400 flex-grow outline-none px-2" type="text" placeholder="Search"
+                id="content" name="content" value="{{ search_bar_values.content }}" />
+            <div class="ms:flex items-center px-2 rounded-lg space-x-4 mx-auto">
+                <select id="choice" name="choice"
+                    class="text-base text-gray-800 outline-none border-2 px-4 py-2 rounded-lg">
+                    {% if the_option.value == 'all' %}
+                    <option value="all" selected>All Fields</option>
+                        {% for the_option in search_bar_values.options %}
+                    <option value="{{ the_option.value }}">{{ the_option.text }}</option>
+                        {% endfor %}
+                    {% else %}
+                    <option value="all">All Fields</option>
+                        {% for the_option in search_bar_values.options %}
+                    <option value="{{ the_option.value }}" {% if search_bar_values.choice == the_option.value %} selected {% endif %}>{{ the_option.text }}</option>
+                        {% endfor %}
+                    {% endif %}
+                </select>
+                <button class="bg-blue-500 hover:bg-blue-300 text-white text-base rounded-lg px-4 py-2 font-thin transition duration-300">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
